@@ -11,7 +11,7 @@ import AdminHomeView from "../domain/admin/Home/view/admin-home.view";
  const route = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/admin/dashboard/home" replace />,
+    element: <Navigate to="/user/dashboard/home" replace />,
   },  
   {
     path: "/",
