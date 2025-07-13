@@ -4,6 +4,7 @@ interface EditUserDetailsProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (formData: {
+    id: string;
     firstName: string;
     lastName: string;
     country: string;
@@ -14,6 +15,7 @@ interface EditUserDetailsProps {
     sex: string;
   }) => void;
   user: {
+    id: string;
     firstName: string;
     lastName: string;
     country: string;
@@ -27,6 +29,7 @@ interface EditUserDetailsProps {
 
 const EditUserDetails: React.FC<EditUserDetailsProps> = ({ isOpen, onClose, onSave, user }) => {
   const [formData, setFormData] = useState({
+    id: user.id,
     firstName: "",
     lastName: "",
     country: "",

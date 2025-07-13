@@ -7,51 +7,66 @@ import InternationalTransferView from "../domain/user/international-transfer/vie
 import DepositView from "../domain/user/deposit/view/deposit-view";
 import ProfileView from "../domain/user/profile/view/profile-view";
 import AdminHomeView from "../domain/admin/Home/view/admin-home.view";
+// import RequireAuth from "../general/layout/app/protected-route";
 
  const route = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/admin/dashboard/home" replace />,
-  },  
-  {
-    path: "/",
-    element: <AppLayout />,
-    children: [
-      {
-        path: "user/dashboard",
-        element: <DashboardLayout />,
-        children: [
-          {
-            path: "home",
-            element: <HomeView />,
-          },
-          {
-            path: "transfer",
-            element: <LocalTransferView />,
-          },
-          {
-            path: "international-transfer",
-            element: <InternationalTransferView />,
-          },
-          {
-            path: "deposit",
-            element: <DepositView />,
-          },
-          {
-            path: "profile",
-            element: <ProfileView />,
-          },
-        ],
-      },
-    ],
-  },
    {
-     path: "admin",
-     element: <AppLayout />,
+     path: "/",
+     element: <Navigate to="/index.html" replace />,
+    },
+   {
+     path: "user",
+     element: (
+         <AppLayout />
+     ),
      children: [
        {
          path: "dashboard",
-         element: <DashboardLayout />,
+         element: (
+           
+             <DashboardLayout />
+        
+         ),
+         children: [
+           {
+             path: "home",
+             element: <HomeView />,
+           },
+           {
+             path: "transfer",
+             element: <LocalTransferView />,
+           },
+           {
+             path: "international-transfer",
+             element: <InternationalTransferView />,
+           },
+           {
+             path: "deposit",
+             element: <DepositView />,
+           },
+           {
+             path: "profile",
+             element: <ProfileView />,
+           },
+         ],
+       },
+     ],
+   },
+   {
+     path: "admin",
+     element: (
+      
+         <AppLayout />
+   
+     ),
+     children: [
+       {
+         path: "dashboard",
+         element: (
+          
+             <DashboardLayout />
+      
+         ),
          children: [
            {
              path: "home",
@@ -64,6 +79,11 @@ import AdminHomeView from "../domain/admin/Home/view/admin-home.view";
          ],
        },
      ],
+   },
+
+   {
+     path: "*",
+     element: <Navigate to="/index.html" replace />,
    },
  ]);
 

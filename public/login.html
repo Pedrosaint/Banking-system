@@ -1,0 +1,312 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bankio - HTML Template</title>
+
+    <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/plugin/nice-select.css">
+    <link rel="stylesheet" href="assets/css/plugin/slick.css">
+    <link rel="stylesheet" href="assets/css/arafat-font.css">
+    <link rel="stylesheet" href="assets/css/plugin/animate.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="assets/css/style-rtl.min.css" id="rtl-stylesheet" disabled>
+    
+    <style>
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn-loading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Ensure button text is white */
+        .cmn-btn, .cmn-btn span, .cmn-btn #loginText {
+            color: white !important;
+        }
+        
+        .cmn-btn:hover, .cmn-btn:hover span, .cmn-btn:hover #loginText {
+            color: black !important;
+        }
+        
+        .cmn-btn:disabled, .cmn-btn:disabled span, .cmn-btn:disabled #loginText {
+            color: white !important;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- start LTR to RTL -->
+    <div class="position-fixed d-flex flex-column text-center" id="draggableDiv">
+        <button id="btn-ltr" class="cmn-btn rounded-2 py-2 px-3">LTR</button>
+        <span class="draggable py-2"><i class="fas fa-arrows-alt xxlr m-0"></i></span>
+        <button id="btn-rtl" class="cmn-btn rounded-2 py-2 px-3">RTL</button>
+    </div>
+    <!-- end LTR to RTL -->
+
+    <!-- start preloader -->
+    <div class="preloader" id="preloader"></div>
+    <!-- end preloader -->
+
+    <!-- Scroll To Top Start-->
+    <a href="javascript:void(0)" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
+    <!-- Scroll To Top End -->
+
+    <!-- header-section start -->
+    <header class="header-section register login">
+        <div class="overlay">
+            <div class="container">
+                <div class="row d-flex header-area">
+                    <nav class="navbar d-flex justify-content-between navbar-expand-lg navbar-dark">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/logo.png" class="logo" alt="logo">
+                        </a>
+                        <div class="d-flex align-items-center justify-content-end">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    Don't have an account
+                                </li>
+                            </ul>
+                            <div class="right-area header-action d-flex align-items-center">
+                                <a href="register.html" class="cmn-btn">Register</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-section end -->
+
+    <!-- Login In start -->
+    <section class="sign-in-up login">
+        <div class="overlay pt-120 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-content">
+                            <div class="section-header">
+                                <h5 class="sub-title">The Power of Financial Freedom</h5>
+                                <h2 class="title">Log in your details</h2>
+                                <p>Your security is our top priority. You'll need this to log into your bankio account</p>
+                            </div>
+                            <form id="loginForm">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="single-input">
+                                            <label for="email">Enter Your Email ID</label>
+                                            <input type="email" id="email" name="email" placeholder="Your email ID here" required>
+                                            <div class="error-message" id="emailError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="single-input">
+                                            <label for="password">Password</label>
+                                            <div class="password-show d-flex align-items-center">
+                                                <input type="password" class="passInput" id="password" name="password" autocomplete="off" placeholder="Enter Your Password" required>
+                                                <img class="showPass" src="assets/images/icon/show-hide.png" alt="icon">
+                                            </div>
+                                            <div class="forgot-area text-end">
+                                                <a href="javascript:void(0)" class="forgot-password">Forgot Password?</a>
+                                            </div>
+                                            <div class="error-message" id="passwordError"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="error-message" id="generalError"></div>
+                                <div class="btn-area">
+                                    <button type="submit" class="cmn-btn" id="loginBtn">
+                                        <span id="loginText">Login</span>
+                                        <span class="spinner-border spinner-border-sm ms-2 d-none"  id="loadingSpinner"></span>                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login In end -->
+
+    <!--==================================================================-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/fontawesome.js"></script>
+    <script src="assets/js/plugin/slick.js"></script>
+    <script src="assets/js/plugin/apexcharts.min.js"></script>
+    <script src="assets/js/plugin/waypoint.min.js"></script>
+    <script src="assets/js/plugin/counter.js"></script>
+    <script src="assets/js/plugin/jquery.nice-select.min.js"></script>
+    <script src="assets/js/plugin/wow.min.js"></script>
+    <script src="assets/js/plugin/plugin.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password show/hide functionality
+            const showPassImg = document.querySelector('.showPass');
+            const passwordInput = document.querySelector('.passInput');
+            
+            if (showPassImg && passwordInput) {
+                showPassImg.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                    } else {
+                        passwordInput.type = 'password';
+                    }
+                });
+            }
+            
+            // Login form submission
+            const loginForm = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginText = document.getElementById('loginText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('generalError');
+            
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Clear previous errors
+                emailError.style.display = 'none';
+                passwordError.style.display = 'none';
+                generalError.style.display = 'none';
+                
+                // Get form data
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+                
+                // Basic validation
+                if (!email) {
+                    emailError.textContent = 'Email is required';
+                    emailError.style.display = 'block';
+                    return;
+                }
+                
+                if (!password) {
+                    passwordError.textContent = 'Password is required';
+                    passwordError.style.display = 'block';
+                    return;
+                }
+                
+                // Show loading state
+                loginBtn.disabled = true;
+                loginText.textContent = 'Logging in...';
+                loadingSpinner.style.display = 'block';
+                
+                try {
+                    // First, try user login
+                    let response = await fetch('https://caixibankio.com/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    });
+                    
+                    let data = await response.json();
+                    let isAdmin = false;
+                    
+                    // If user login fails, try admin login
+                    if (!response.ok) {
+                        response = await fetch('https://caixibankio.com/api/admin/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                email: email,
+                                password: password
+                            })
+                        });
+                        
+                        data = await response.json();
+                        isAdmin = true;
+                    }
+                    
+                    if (response.ok) {
+                        // Login successful - differentiate between user and admin
+                        if (isAdmin) {
+                            alert('Admin login successful! Welcome to the Admin Portal.');
+                            
+                            // Store admin token and role
+                            if (data.token) {
+                                localStorage.setItem('authToken', data.token);
+                                localStorage.setItem('userRole', 'admin');
+                            }
+                            
+                            // Redirect to admin dashboard
+                            window.location.replace('http://localhost:5173/admin/dashboard/home');
+                            
+                        } else {
+                            alert('User login successful! Welcome to your User Portal.');
+                            
+                            // Store user token and role
+                            if (data.token) {
+                                localStorage.setItem('authToken', data.token);
+                                localStorage.setItem('userRole', 'user');
+                            }
+                            
+                            // Redirect to user dashboard
+                            window.location.replace ('http://localhost:5173/user/dashboard/home');
+                        }
+                        
+                    } else {
+                        // Both login attempts failed
+                        generalError.textContent = data.message || 'Login failed. Please check your credentials.';
+                        generalError.style.display = 'block';
+                    }
+                    
+                } catch (error) {
+                    console.error('Login error:', error);
+                    generalError.textContent = 'Network error. Please try again later.';
+                    generalError.style.display = 'block';
+                } finally {
+                    // Reset loading state
+                    loginBtn.disabled = false;
+                    loginText.textContent = 'Login';
+                    loadingSpinner.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

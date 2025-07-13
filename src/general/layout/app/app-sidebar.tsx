@@ -8,6 +8,40 @@ import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 
 export default function AppSidebar({ onClose }: { onClose?: () => void }) {
+  const [dateTime, setDateTime] = useState({
+    date: "",
+    time: "",
+  });
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+
+      // Format date
+      const dateOptions: Intl.DateTimeFormatOptions = {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      };
+      const date = now.toLocaleDateString("en-US", dateOptions);
+
+      // Format LOCAL time with AM/PM
+      let hours = now.getHours();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const time = `${hours}:${minutes} ${ampm}`;
+
+      setDateTime({ date, time });
+    };
+
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
@@ -59,9 +93,10 @@ export default function AppSidebar({ onClose }: { onClose?: () => void }) {
             </div>
           </div>
           <div className="border-b border-gray-200">
-            <div className="px-9 pb-3">
+            <div className="px-5 pb-3">
               <h1>
-                Date: 05 May 2025 <br /> Time: 12:00 UTC
+                Date: {dateTime.date} <br />
+                Time: {dateTime.time} UTC
               </h1>
             </div>
           </div>

@@ -3,11 +3,29 @@ import { Outlet } from 'react-router-dom';
 
 import AppSidebar from './app-sidebar';
 import { FaSearch } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
 export default function AppLayout() {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);  
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    const role = localStorage.getItem("userRole");
+    const currentPath = window.location.pathname;
+
+    if (!token) {
+      window.location.href = "/index.html";
+    }
+
+    // ✅ Only redirect if not already on the correct route
+    if (role === "admin" && !currentPath.startsWith("/admin/dashboard/home")) {
+      window.location.replace("/admin/dashboard/home");
+    } else if (role === "user" && !currentPath.startsWith("/user/dashboard/home")) {
+      window.location.replace("/user/dashboard/home");
+    }
+  }, []);
+  
 
   return (
     <>
