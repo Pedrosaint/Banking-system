@@ -1,5 +1,6 @@
 // Admin
 export interface User {
+  deleted: unknown;
   id: string;
   firstName: string;
   lastName: string;
@@ -32,3 +33,49 @@ export interface UpdateUsersResponse {
 export type UpdateUsersData = Partial<
   Omit<User, "id" | "createdAt" | "updatedAt" | "accountNumber">
 >;
+
+
+
+// User transfer requests
+export interface UserTransferRequest {
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  bankAddress: string;
+  country: string;
+  currency: string;
+  swiftCode: string;
+  ibanNumber: string;
+  amount: string;
+  transferType: string;
+  description: string;
+}
+
+// user transfer response
+export interface UserTransferResponse {
+  success: boolean;
+  message: string;
+  transfer: Transfer;
+  newBalance: number;
+}
+
+export interface Transfer {
+  id: string;
+  userId: string;
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  bankAddress: string;
+  country: string;
+  currency: string;
+  swiftCode: string;
+  ibanNumber: string;
+  amount: number;
+  transferType: string;
+  description: string;
+  status: string;
+  createdAt: string;
+  transactionId: string;
+}
+
+

@@ -8,16 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bankio - HTML Template</title>
 
-    <link rel="shortcut icon" href="assets/images/fav.png" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/plugin/nice-select.css">
-    <link rel="stylesheet" href="assets/css/plugin/slick.css">
-    <link rel="stylesheet" href="assets/css/arafat-font.css">
-    <link rel="stylesheet" href="assets/css/plugin/animate.css">
-    <link rel="stylesheet" href="assets/css/style.min.css">
-    <link rel="stylesheet" href="assets/css/style-rtl.min.css" id="rtl-stylesheet" disabled>
+    <link rel="shortcut icon" href="/assets/images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/plugin/nice-select.css">
+    <link rel="stylesheet" href="/assets/css/plugin/slick.css">
+    <link rel="stylesheet" href="/assets/css/arafat-font.css">
+    <link rel="stylesheet" href="/assets/css/plugin/animate.css">
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <link rel="stylesheet" href="/assets/css/style-rtl.min.css" id="rtl-stylesheet" disabled>
     
     <style>
         .loading-spinner {
@@ -160,20 +160,21 @@
     <!-- Login In end -->
 
     <!--==================================================================-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/fontawesome.js"></script>
-    <script src="assets/js/plugin/slick.js"></script>
-    <script src="assets/js/plugin/apexcharts.min.js"></script>
-    <script src="assets/js/plugin/waypoint.min.js"></script>
-    <script src="assets/js/plugin/counter.js"></script>
-    <script src="assets/js/plugin/jquery.nice-select.min.js"></script>
-    <script src="assets/js/plugin/wow.min.js"></script>
-    <script src="assets/js/plugin/plugin.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/fontawesome.js"></script>
+    <script src="/assets/js/plugin/slick.js"></script>
+    <script src="/assets/js/plugin/apexcharts.min.js"></script>
+    <script src="/assets/js/plugin/waypoint.min.js"></script>
+    <script src="/assets/js/plugin/counter.js"></script>
+    <script src="/assets/js/plugin/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/plugin/wow.min.js"></script>
+    <script src="/assets/js/plugin/plugin.js"></script>
+    <script src="/assets/js/main.js"></script>
     
-    <script>
+    <!-- <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             // Password show/hide functionality
             const showPassImg = document.querySelector('.showPass');
@@ -273,7 +274,7 @@
                             }
                             
                             // Redirect to admin dashboard
-                            window.location.replace('http://localhost:5173/admin/dashboard/home');
+                            window.location.replace('/admin/dashboard/home');
                             
                         } else {
                             alert('User login successful! Welcome to your User Portal.');
@@ -285,7 +286,7 @@
                             }
                             
                             // Redirect to user dashboard
-                            window.location.replace ('http://localhost:5173/user/dashboard/home');
+                            window.location.replace ('/user/dashboard/home');
                         }
                         
                     } else {
@@ -306,7 +307,160 @@
                 }
             });
         });
-    </script>
+    </script> -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Password show/hide functionality
+        const showPassImg = document.querySelector('.showPass');
+        const passwordInput = document.querySelector('.passInput');
+        
+        if (showPassImg && passwordInput) {
+            showPassImg.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            });
+        }
+        
+        // Login form submission
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginText = document.getElementById('loginText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const generalError = document.getElementById('generalError');
+        
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            generalError.style.display = 'none';
+            
+            // Get form data
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Basic validation
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.style.display = 'block';
+                return;
+            }
+            
+            if (!password) {
+                passwordError.textContent = 'Password is required';
+                passwordError.style.display = 'block';
+                return;
+            }
+            
+            // Show loading state
+            loginBtn.disabled = true;
+            loginText.textContent = 'Logging in...';
+            loadingSpinner.style.display = 'block';
+            
+            try {
+                // First, try user login
+                let response = await fetch('https://worldbankio.com/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                let data = await response.json();
+                let isAdmin = false;
+                
+                // If user login fails, try admin login
+                if (!response.ok) {
+                    response = await fetch('https://worldbankio.com/api/admin/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    });
+                    
+                    data = await response.json();
+                    isAdmin = true;
+                }
+                
+                if (response.ok) {
+                    // Login successful - differentiate between user and admin
+                    if (isAdmin) {
+                        alert('Admin login successful! Welcome to the Admin Portal.');
+                        
+                        // Store admin token and role
+                        if (data.token) {
+                            localStorage.setItem('authToken', data.token);
+                            localStorage.setItem('userRole', 'admin');
+                            // Store additional admin data if needed
+                            if (data.user) {
+                                localStorage.setItem('userData', JSON.stringify(data.user));
+                            }
+                        }
+                        
+                        // Redirect to admin dashboard
+                        window.location.replace('/admin/dashboard/home');
+                        
+                    } else {
+                        // Store all user data in localStorage
+                        if (data.token) {
+                            localStorage.setItem('authToken', data.token);
+                            localStorage.setItem('userRole', 'user');
+                            
+                            // Store the complete user object
+                            if (data.user) {
+                                localStorage.setItem('userData', JSON.stringify(data.user));
+                            }
+                            
+                            // Store individual user properties for easy access
+                            const user = data.user;
+                            if (user) {
+                                localStorage.setItem('userId', user.id);
+                                localStorage.setItem('userFirstName', user.firstName);
+                                localStorage.setItem('userLastName', user.lastName);
+                                localStorage.setItem('userEmail', user.email);
+                                localStorage.setItem('userAccountNumber', user.accountNumber);
+                                localStorage.setItem('userAccountType', user.accountType);
+                                localStorage.setItem('userProfileImage', user.profileImageUrl);
+                            }
+                        }
+                        
+                        // Redirect to user dashboard
+                        window.location.replace('/user/dashboard/home');
+                    }
+                    
+                } else {
+                    // Both login attempts failed
+                    generalError.textContent = data.message || 'Login failed. Please check your credentials.';
+                    generalError.style.display = 'block';
+                }
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                generalError.textContent = 'Network error. Please try again later.';
+                generalError.style.display = 'block';
+            } finally {
+                // Reset loading state
+                loginBtn.disabled = false;
+                loginText.textContent = 'Login';
+                loadingSpinner.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ export const updateUser = async (
   }
 };
 
-// (Optional) Delete user
+// Delete user
 export const deleteUser = async (id: string): Promise<void> => {
-  await api.delete(`admin/delete/${id}`);
+  await api.delete(`admin/user/delete/${id}`);
 };

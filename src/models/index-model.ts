@@ -29,8 +29,8 @@ export interface BaseTransferProps {
   subtitle?: string;
   showTransferButton?: boolean;
   buttonText?: string;
-  onSubmit: (data: any) => void;
-  initialValues?: any;
+  onSubmit: (data: Record<string, unknown>) => void;
+  initialValues?: object;
   transferType: TransferType;
 }
 

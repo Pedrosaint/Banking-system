@@ -6,17 +6,17 @@ const Balance = () => {
       <div className="flex gap-5 md:gap-20 flex-col md:flex-row">
         <div>
           <p className="text-gray-500">Total Balance</p>
-          <h2 className="text-3xl font-bold">$2,194,307.00</h2>
-          <button className="text-blue-900 text-sm font-medium border-b-3 border-blue-900 hover:opacity-80 transition">
+          <h2 className="text-3xl font-bold">$2,192.00</h2>
+          {/* <button className="text-blue-900 text-sm font-medium border-b-3 border-blue-900 hover:opacity-80 transition">
             View Statement &gt;
-          </button>
+          </button> */}
         </div>
         <div>
           <p className="text-gray-500">Available Balance</p>
-          <h2 className="text-3xl font-bold">$2,141,210.00</h2>
-          <button className="text-blue-900 text-sm font-medium border-b-3 border-blue-900 hover:opacity-80 transition">
+          <h2 className="text-3xl font-bold">$2,121.00</h2>
+          {/* <button className="text-blue-900 text-sm font-medium border-b-3 border-blue-900 hover:opacity-80 transition">
             Transfer Fund &gt;
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="w-full md:w-85 h-47 perspective">
