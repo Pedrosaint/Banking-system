@@ -80,14 +80,23 @@ export default function AppLayout() {
                 className="bg-transparent outline-none text-white placeholder-gray-300 w-full"
               />
             </div>
-            <img
-              src={user?.profileImageUrl}
-              alt=""
-              className="w-10 h-10 rounded-full hidden md:block"
-            />
+            {user && (
+              <img
+                src={user?.profileImageUrl}
+                alt=""
+                className="w-10 h-10 rounded-full hidden md:block"
+              />
+            )}
           </div>
-
-          <img src={user?.profileImageUrl} alt="" className="w-15 h-10 rounded-full md:hidden " />
+          {
+            user && (
+              <img
+                src={user?.profileImageUrl}
+                alt=""
+                className="w-10 h-10 rounded-full hidden md:block"
+              />
+            )
+          }
         </div>
 
         {/* Search bar on mobile */}
