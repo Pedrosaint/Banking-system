@@ -2,10 +2,6 @@
 import InternationalTransfer from "../components/international-transfer";
 
 const InternationalTransferView = () => {
-  const handleSubmit = (formData: any) => {
-    console.log("International transfer submitted:", formData);
-    // Add your submission logic here (API call, etc.)
-  };
 
   return (
     <>
@@ -15,9 +11,7 @@ const InternationalTransferView = () => {
         </h1>
       </div>
       <div className="md:mt-12 mt-5 mb-15 md:px-5 px-3">
-        <InternationalTransfer 
-        transferType="international"
-        onSubmit={handleSubmit} />
+        <InternationalTransfer />
       </div>
     </>
   );

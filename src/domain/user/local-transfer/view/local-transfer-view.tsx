@@ -3,10 +3,6 @@
 import LocalTransfer from "../components/local-transfer";
 
 const LocalTransferView = () => {
-  const handleSubmit = (formData: any) => {
-    console.log("Local transfer submitted:", formData);
-    // Add your submission logic here (API call, etc.)
-  };
 
   return (
     <>
@@ -16,9 +12,7 @@ const LocalTransferView = () => {
         </h1>
       </div>
       <div className="md:mt-12 mt-5 mb-15 px-3 md:px-5">
-        <LocalTransfer 
-        transferType="local"
-        onSubmit={handleSubmit} />
+        <LocalTransfer />
       </div>
     </>
   );
