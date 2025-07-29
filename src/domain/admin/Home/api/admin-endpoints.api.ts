@@ -1,5 +1,5 @@
 import api from "./api";
-import { UpdateUsersData, UpdateUsersResponse, UsersResponse } from "../../../../models/type";
+import { InitiateUserTransactionRequest, InitiateUserTransactionResponse, UpdateUsersData, UpdateUsersResponse, UsersResponse, UserTransactionResponse } from "../../../../models/type";
 import { User } from "../../../../models/type";
 
 
@@ -34,4 +34,16 @@ export const updateUser = async (
 // Delete user
 export const deleteUser = async (id: string): Promise<void> => {
   await api.delete(`admin/user/delete/${id}`);
+};
+
+
+// Get user transfer
+export const getUserTransaction = async (id: string): Promise<UserTransactionResponse> => {
+  const response = await api.get(`admin/user/${id}/transactions`);
+  return response.data;
+};
+
+export const initiateUserCreditTransanction = async (id: string, data: InitiateUserTransactionRequest): Promise<InitiateUserTransactionResponse> => {
+  const response = await api.post(`admin/user/${id}/transaction`, data);
+  return response.data;
 };

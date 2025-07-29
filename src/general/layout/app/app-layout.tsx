@@ -4,10 +4,31 @@ import { Outlet } from 'react-router-dom';
 import AppSidebar from './app-sidebar';
 import { FaSearch } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+import { User } from '../../../models/type';
+import { fetchAllUsers } from '../../../domain/admin/Home/api/admin-endpoints.api';
 // import { GiHamburgerMenu } from 'react-icons/gi';
 
 export default function AppLayout() {
-  const [showSidebar, setShowSidebar] = useState(false);  
+  const [showSidebar, setShowSidebar] = useState(false); 
+    const [user, setUser] = useState<User | null>(null);
+  
+    useEffect(() => {
+      const userId = localStorage.getItem("userId");
+  
+      const loadUser = async () => {
+        try {
+          const response = await fetchAllUsers();
+          const foundUser = response.users.find((u) => u.id === userId);
+          if (foundUser) {
+            setUser(foundUser);
+          }
+        } catch (error) {
+          console.error("Error loading user:", error);
+        }
+      };
+  
+      loadUser();
+    }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -60,13 +81,13 @@ export default function AppLayout() {
               />
             </div>
             <img
-              src=""
+              src={user?.profileImageUrl}
               alt=""
               className="w-10 h-10 rounded-full hidden md:block"
             />
           </div>
 
-          <img src="" alt="" className="w-15 h-10 rounded-full md:hidden " />
+          <img src={user?.profileImageUrl} alt="" className="w-15 h-10 rounded-full md:hidden " />
         </div>
 
         {/* Search bar on mobile */}
@@ -103,7 +124,7 @@ export default function AppLayout() {
         )}
 
         {/* Page content */}
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 w-full md:p-0 overflow-hidden">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

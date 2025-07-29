@@ -10,4 +10,6 @@ export const formatUserForModal = (user: User) => ({
   accountBalance: user.balance.toString(),
   dateOfBirth: user.dateOfBirth,
   sex: user.sex,
+  isSuspicious: user.isSuspicious,
+  profileImageUrl: user.profileImageUrl,
 });

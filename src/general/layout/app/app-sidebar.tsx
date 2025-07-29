@@ -6,12 +6,34 @@ import { RootState } from "../../../redux/store";
 import { adminNavControl, navControl } from "../../../utilis/sidebar-links";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
+import { User } from "../../../models/type";
+import { fetchAllUsers } from "../../../domain/admin/Home/api/admin-endpoints.api";
 
 export default function AppSidebar({ onClose }: { onClose?: () => void }) {
   const [dateTime, setDateTime] = useState({
     date: "",
     time: "",
   });
+
+    const [user, setUser] = useState<User | null>(null);
+    
+      useEffect(() => {
+        const userId = localStorage.getItem("userId");
+    
+        const loadUser = async () => {
+          try {
+            const response = await fetchAllUsers();
+            const foundUser = response.users.find((u) => u.id === userId);
+            if (foundUser) {
+              setUser(foundUser);
+            }
+          } catch (error) {
+            console.error("Error loading user:", error);
+          }
+        };
+    
+        loadUser();
+      }, []);
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -85,13 +107,21 @@ export default function AppSidebar({ onClose }: { onClose?: () => void }) {
               <IoClose size={24} />
             </button>
           )}
-          <div className="border-b border-gray-200 flex items-center gap-4 py-3">
-            <img src="" alt="" className="rounded-full w-10 h-10" />
-            <div>
-              <h2>Susan Anthony</h2>
-              <p className="text-[70%]">1234567890</p>
+          {user && (
+            <div className="border-b border-gray-200 flex items-center gap-4 py-3">
+              <img
+                src={user?.profileImageUrl}
+                alt=""
+                className="rounded-full w-10 h-10"
+              />
+              <div>
+                <h2>
+                  {user?.firstName} {user?.lastName}
+                </h2>
+                <p className="text-[70%]">{user?.accountNumber}</p>
+              </div>
             </div>
-          </div>
+          )}
           <div className="border-b border-gray-200">
             <div className="px-5 pb-3">
               <h1>

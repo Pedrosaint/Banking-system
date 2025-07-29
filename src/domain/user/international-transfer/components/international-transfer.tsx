@@ -1,41 +1,14 @@
-// // src/views/international-transfer.tsx
-// import React from "react";
-// import TransferPage from "../../../../general/components/common/transfer-page";
-// import { InternationalTransferProps } from "../../../../models/index-model";
-
-// const InternationalTransfer: React.FC<InternationalTransferProps> = ({
-//   title = "International Transfer",
-//   subtitle = "Funds will reflect in the Beneficiary Account within 72 hours.",
-//   showTransferButton = true,
-//   buttonText = "Transfer",
-//   onSubmit,
-//   initialValues = {},
-// }) => {
-//   return (
-//     <TransferPage
-//       title={title}
-//       subtitle={subtitle}
-//       showTransferButton={showTransferButton}
-//       buttonText={buttonText}
-//       onSubmit={onSubmit}
-//       initialValues={initialValues}
-//       transferType="international"
-//     />
-//   );
-// };
-
-// export default InternationalTransfer;
-
-
 
 
 // InternationalTransfer component
-import React from "react";
+import React, { useState } from "react";
 import TransferPage from "../../../../general/components/common/transfer-page";
 import { makeTransfer } from "../../../user/international-transfer/api/users-endpoint";
 import { toast } from "sonner";
+import { SuspendedModal } from "../modal/suspended.modal";
 
 const InternationalTransfer: React.FC = () => {
+  const [isSuspendedModalVisible, setIsSuspendedModalVisible] = useState(false);
   const handleSubmit = async (data: Record<string, unknown>) => {
     const userTransferRequest = {
       amount: String(data.amount as number),
@@ -50,23 +23,45 @@ const InternationalTransfer: React.FC = () => {
       currency: data.currency as string,
       description: (data.description as string) || "",
     };
+
     try {
       const response = await makeTransfer(userTransferRequest);
       console.log("Transfer successful:", response);
       toast.success("Transfer successful!");
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error("Transfer failed:", error);
-     toast.error("Transfer failed");
+
+      const statusCode = error?.response?.status;
+      const data = error?.response?.data;
+
+      const message = data?.error || data?.message || "Something went wrong";
+
+      if (
+        statusCode === 403 &&
+        message.toLowerCase().includes("transfers are currently disabled")
+      ) {
+        setIsSuspendedModalVisible(true);
+      } else {
+        toast.error(message);
+      }
     }
+
+
   };
 
   return (
-    <TransferPage
-      title="International Transfer"
-      subtitle="Funds will reflect in the Beneficiary Account within 72 hours."
-      onSubmit={handleSubmit}
-      transferType="international"
-    />
+    <>
+      <TransferPage
+        title="International Transfer"
+        subtitle="Funds will reflect in the Beneficiary Account within 72 hours."
+        onSubmit={handleSubmit}
+        transferType="international"
+      />
+      {isSuspendedModalVisible && (
+        <SuspendedModal onClose={() => setIsSuspendedModalVisible(false)} />
+      )}
+    </>
   );
 };
 

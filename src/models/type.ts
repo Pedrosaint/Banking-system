@@ -78,4 +78,47 @@ export interface Transfer {
   transactionId: string;
 }
 
+// get User transaction response
+export interface UserTransactionResponse {
+  success: boolean;
+  transactions: Transaction[];
+}
+
+export interface Transaction {
+  id: string;
+  type: string;
+  amount: number;
+  status: string;
+  description: string;
+  userId: string;
+  createdAt: string;
+}
+
+
+
+// Initiate user credit transaction request
+export interface InitiateUserTransactionRequest {
+  status: string;
+  amount: string;
+  type: string;
+  description: string;
+}
+
+// Initiate user credit transaction response
+export interface InitiateUserTransactionResponse {
+  success: boolean;
+  message: string;
+  transaction: Transaction;
+  newBalance: number;
+}
+
+export interface Transaction {
+  id: string;
+  type: string;
+  amount: number;
+  status: string;
+  description: string;
+  userId: string;
+  createdAt: string;
+}
 
