@@ -54,22 +54,14 @@ export default function AppLayout() {
       <header className="bg-blue-900 text-white sticky top-0 z-20 w-full py-4 px-4 lg:px-6">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center gap-2 lg:gap-4">
+          <div className="flex items-center gap-2 lg:gap-4 justify-between whitespace-nowrap">
             <img
               src="/logo.png"
               alt="Banking logo"
               className="bg-white p-2 rounded-full cursor-pointer"
             />
+            <h1 className="text-xl font-bold">World Bank</h1>
           </div>
-
-          {/* Menu icon only on tablets */}
-          {/* <div className="hidden md:block lg:hidden">
-            <GiHamburgerMenu
-              size={24}
-              onClick={() => setShowSidebar(true)}
-              className="cursor-pointer"
-            />
-          </div> */}
 
           <div className="flex items-center gap-4 w-full justify-end">
             <div className="rounded-2xl bg-[#0d092944] items-center gap-2 p-2 text-sm w-full max-w-xs hidden md:flex">
@@ -88,15 +80,6 @@ export default function AppLayout() {
               />
             )}
           </div>
-          {
-            user && (
-              <img
-                src={user?.profileImageUrl}
-                alt=""
-                className="w-10 h-10 rounded-full hidden md:block"
-              />
-            )
-          }
         </div>
 
         {/* Search bar on mobile */}

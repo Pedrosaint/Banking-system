@@ -85,7 +85,7 @@ const route = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to="/index.html" replace />,
+    element: <Navigate to="/landing.html" replace />,
   },
 ]);
 

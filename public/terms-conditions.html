@@ -19,6 +19,20 @@
     <link rel="stylesheet" href="/assets/css/plugin/animate.css">
     <link rel="stylesheet" href="/assets/css/style.min.css">
     <link rel="stylesheet" href="/assets/css/style-rtl.min.css" id="rtl-stylesheet" disabled>
+     <style>
+        /* Custom CSS to increase WorldBank text size */
+        .logo-area div {
+            font-size: 28px; /* Increased from text-2xl */
+            font-weight: 700;
+            color: #2a41e8; /* Added blue color to match common bank logos */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo-area img {
+            height: 40px; /* Slightly increased logo size */
+        }
+    </style>
 </head>
 
 <body>
@@ -46,7 +60,10 @@
             <div class="row d-flex header-area">
               <nav class="navbar navbar-expand-lg navbar-light">
                 <a class="navbar-brand" href="index.html">
-                  <img src="assets/images/logo.png" class="logo" alt="logo">
+                 <div class="logo-area d-flex align-items-center gap-2">
+                     <img src="assets/images/logo.png" class="logo" alt="logo">
+                  <div>WORLDBANK</div>
+                 </div>
                 </a>
                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#navbar-content">
