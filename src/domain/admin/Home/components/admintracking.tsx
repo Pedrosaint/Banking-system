@@ -157,6 +157,7 @@ const AdminTracking = () => {
   );
 
   return (
+    <>
     <div className="p-6 space-y-6 w-screen md:w-screen lg:w-full">
       {/* Search Bar */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
@@ -340,6 +341,7 @@ const AdminTracking = () => {
         </>
       )}
     </div>
+  </>
   );
 };
 
