@@ -87,7 +87,7 @@ export default function AppLayout() {
           <FaSearch size={20} className="text-gray-200" />
           <input
             type="text"
-            placeholder="Welcome Susan Anthony"
+            placeholder=""
             className="bg-transparent outline-none text-white placeholder-gray-300 w-full"
           />
         </div>
